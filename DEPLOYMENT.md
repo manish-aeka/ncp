@@ -1,34 +1,26 @@
-# GitHub Deployment (Cloudflare)
+# GitHub Deployment (GitHub Pages)
 
-This project is configured to deploy through GitHub Actions to Cloudflare Workers.
+This project is configured to deploy through GitHub Actions to GitHub Pages.
 
 ## 1) Push your code to GitHub
 
 Use a branch named `main` for production deploys.
 
-## 2) Add GitHub repository secrets
+## 2) Configure Pages in GitHub
 
 In your GitHub repo:
-`Settings -> Secrets and variables -> Actions -> New repository secret`
 
-Create these two secrets:
+1. Open `Settings -> Pages`
+2. Under `Build and deployment`, set:
+	- `Source`: `GitHub Actions`
 
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_ACCOUNT_ID`
-
-### Required token permissions
-
-For `CLOUDFLARE_API_TOKEN`, use a token that can deploy Workers:
-
-- Account: `Cloudflare Workers Scripts:Edit`
-- Account: `Account Settings:Read`
-- Zone permissions are optional unless your deployment flow requires them.
+No repository secrets are required for this Pages workflow.
 
 ## 3) Deploy
 
 A deploy runs automatically on every push to `main` via:
 
-- `.github/workflows/deploy-cloudflare.yml`
+- `.github/workflows/deploy-github-pages.yml`
 
 You can also run it manually from GitHub Actions (`workflow_dispatch`).
 
@@ -39,7 +31,13 @@ bun install
 bun run build
 ```
 
+## URL
+
+For this repository, the expected Pages URL is:
+
+- `https://manish-aeka.github.io/ncp/`
+
 ## Notes
 
-- Worker app name and entrypoint come from `wrangler.jsonc`.
-- If you change environment bindings later (KV, D1, R2, vars), update `wrangler.jsonc` and secrets as needed.
+- The build publishes static assets from `dist/client`.
+- SPA fallback is configured by generating `dist/client/404.html` from `index.html` in CI.
