@@ -1,11 +1,16 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { Heart, Search, ShoppingBag, Sparkles, LayoutDashboard } from "lucide-react";
+import { Heart, Search, ShoppingBag, LayoutDashboard } from "lucide-react";
 import { useWishlist } from "@/lib/store";
 
 const userLinks = [
   { to: "/", label: "Discover" },
   { to: "/browse", label: "Browse" },
   { to: "/image-search", label: "Visual Search" },
+];
+
+const adminLinks = [
+  { to: "/admin", label: "Dashboard", exact: true },
+  { to: "/admin/products", label: "Products" },
 ];
 
 export function SiteNav() {
@@ -28,8 +33,8 @@ export function SiteNav() {
           </div>
         </Link>
 
-        {!isAdmin && (
-          <nav className="hidden md:flex items-center gap-1">
+        {!isAdmin ? (
+          <nav className="hidden md:flex items-center gap-2">
             {userLinks.map((l) => {
               const active = l.to === "/" ? pathname === "/" : pathname.startsWith(l.to);
               return (
@@ -47,9 +52,28 @@ export function SiteNav() {
               );
             })}
           </nav>
+        ) : (
+          <nav className="hidden md:flex items-center gap-2">
+            {adminLinks.map((l) => {
+              const active = l.exact ? pathname === l.to : pathname.startsWith(l.to);
+              return (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  className={`relative rounded-full px-4 py-2 text-sm transition-colors ${
+                    active
+                      ? "bg-primary text-primary-foreground"
+                      : "text-foreground/75 hover:bg-secondary hover:text-foreground"
+                  }`}
+                >
+                  {l.label}
+                </Link>
+              );
+            })}
+          </nav>
         )}
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
           {isAdmin ? (
             <Link
               to="/"
@@ -90,16 +114,6 @@ export function SiteNav() {
           )}
         </div>
       </div>
-      {isAdmin && (
-        <div className="border-t border-border/60 bg-secondary/40">
-          <div className="mx-auto flex max-w-7xl items-center gap-2 px-6 py-2 text-xs">
-            <Sparkles className="h-3.5 w-3.5 text-primary" />
-            <span className="uppercase tracking-[0.2em] text-muted-foreground">
-              Admin console
-            </span>
-          </div>
-        </div>
-      )}
     </header>
   );
 }
