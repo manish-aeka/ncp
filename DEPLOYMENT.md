@@ -1,20 +1,27 @@
-# GitHub Deployment (GitHub Pages)
+# GitHub Deployment (Cloudflare via GitHub Actions)
 
-This project is configured to deploy through GitHub Actions to GitHub Pages.
+This project is configured to deploy through GitHub Actions to Cloudflare Workers.
 
 ## 1) Push your code to GitHub
 
 Use a branch named `main` for production deploys.
  
-## 2) Configure Pages in GitHub
+## 2) Add GitHub repository secrets
 
 In your GitHub repo:
+`Settings -> Secrets and variables -> Actions -> New repository secret`
 
-1. Open `Settings -> Pages`
-2. Under `Build and deployment`, set:
-	- `Source`: `GitHub Actions`
+Create these two secrets:
 
-No repository secrets are required for this Pages workflow.
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+
+### Required token permissions
+
+For `CLOUDFLARE_API_TOKEN`, use a token that can deploy Workers:
+
+- Account: `Cloudflare Workers Scripts:Edit`
+- Account: `Account Settings:Read`
 
 ## 3) Deploy
 
@@ -33,11 +40,8 @@ bun run build
 
 ## URL
 
-For this repository, the expected Pages URL is:
-
-- `https://manish-aeka.github.io/ncp/`
+After deployment, use your Cloudflare Worker URL (or custom domain), not `github.io`.
 
 ## Notes
 
-- The build publishes static assets from `dist/client`.
-- SPA fallback is configured by generating `dist/client/404.html` from `index.html` in CI.
+- This app is SSR-oriented and does not produce `dist/client/index.html`, so GitHub Pages is not a compatible host for the full app.
