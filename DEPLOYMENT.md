@@ -5,7 +5,7 @@ This project is configured to deploy through GitHub Actions to GitHub Pages.
 ## 1) Push your code to GitHub
 
 Use a branch named `main` for production deploys.
-
+ 
 ## 2) Configure Pages in GitHub
 
 In your GitHub repo:
