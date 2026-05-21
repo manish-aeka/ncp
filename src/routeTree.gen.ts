@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WishlistRouteImport } from './routes/wishlist'
+import { Route as TextSearchRouteImport } from './routes/text-search'
 import { Route as ImageSearchRouteImport } from './routes/image-search'
 import { Route as BrowseRouteImport } from './routes/browse'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -23,6 +24,11 @@ import { Route as AdminProductsIdEditRouteImport } from './routes/admin.products
 const WishlistRoute = WishlistRouteImport.update({
   id: '/wishlist',
   path: '/wishlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TextSearchRoute = TextSearchRouteImport.update({
+  id: '/text-search',
+  path: '/text-search',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImageSearchRoute = ImageSearchRouteImport.update({
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/browse': typeof BrowseRoute
   '/image-search': typeof ImageSearchRoute
+  '/text-search': typeof TextSearchRoute
   '/wishlist': typeof WishlistRoute
   '/admin/products': typeof AdminProductsRouteWithChildren
   '/product/$id': typeof ProductIdRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/browse': typeof BrowseRoute
   '/image-search': typeof ImageSearchRoute
+  '/text-search': typeof TextSearchRoute
   '/wishlist': typeof WishlistRoute
   '/admin/products': typeof AdminProductsRouteWithChildren
   '/product/$id': typeof ProductIdRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/browse': typeof BrowseRoute
   '/image-search': typeof ImageSearchRoute
+  '/text-search': typeof TextSearchRoute
   '/wishlist': typeof WishlistRoute
   '/admin/products': typeof AdminProductsRouteWithChildren
   '/product/$id': typeof ProductIdRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/browse'
     | '/image-search'
+    | '/text-search'
     | '/wishlist'
     | '/admin/products'
     | '/product/$id'
@@ -125,6 +135,7 @@ export interface FileRouteTypes {
     | '/'
     | '/browse'
     | '/image-search'
+    | '/text-search'
     | '/wishlist'
     | '/admin/products'
     | '/product/$id'
@@ -137,6 +148,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/browse'
     | '/image-search'
+    | '/text-search'
     | '/wishlist'
     | '/admin/products'
     | '/product/$id'
@@ -150,6 +162,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   BrowseRoute: typeof BrowseRoute
   ImageSearchRoute: typeof ImageSearchRoute
+  TextSearchRoute: typeof TextSearchRoute
   WishlistRoute: typeof WishlistRoute
   ProductIdRoute: typeof ProductIdRoute
 }
@@ -161,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/wishlist'
       fullPath: '/wishlist'
       preLoaderRoute: typeof WishlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/text-search': {
+      id: '/text-search'
+      path: '/text-search'
+      fullPath: '/text-search'
+      preLoaderRoute: typeof TextSearchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/image-search': {
@@ -260,6 +280,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   BrowseRoute: BrowseRoute,
   ImageSearchRoute: ImageSearchRoute,
+  TextSearchRoute: TextSearchRoute,
   WishlistRoute: WishlistRoute,
   ProductIdRoute: ProductIdRoute,
 }

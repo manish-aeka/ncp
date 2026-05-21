@@ -238,7 +238,6 @@ function RecentProductsCard({ items }: { items: Product[] }) {
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <h3 className="truncate text-lg font-medium">{p.name}</h3>
-                    <p className="text-xs text-muted-foreground">{p.id}</p>
                   </div>
                   <span className="rounded-full bg-secondary px-2 py-1 text-xs text-muted-foreground">
                     {p.category}

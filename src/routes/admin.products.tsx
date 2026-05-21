@@ -185,7 +185,6 @@ function AdminProducts() {
                       />
                       <div>
                         <div className="font-medium">{p.name}</div>
-                        <div className="text-xs text-muted-foreground">{p.id}</div>
                       </div>
                     </div>
                   </td>
@@ -228,7 +227,7 @@ function AdminProducts() {
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {filtered.map((p) => (
             <article key={p.id} className="overflow-hidden rounded-2xl border border-border bg-card">
-              <div className="aspect-[16/10] overflow-hidden bg-secondary/40">
+              <div className="aspect-16/10 overflow-hidden bg-secondary/40">
                 <img
                   src={p.image}
                   alt={p.name}
@@ -240,7 +239,6 @@ function AdminProducts() {
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <h3 className="truncate text-lg font-medium">{p.name}</h3>
-                    <p className="text-xs text-muted-foreground">{p.id}</p>
                   </div>
                   <span className="rounded-full bg-secondary px-2 py-1 text-xs text-muted-foreground">
                     {p.category}

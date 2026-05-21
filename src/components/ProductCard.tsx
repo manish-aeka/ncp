@@ -8,12 +8,8 @@ export function ProductCard({ product }: { product: Product }) {
   const liked = has(product.id);
 
   return (
-    <div className="group relative">
-      <Link
-        to="/product/$id"
-        params={{ id: product.id }}
-        className="block overflow-hidden rounded-2xl bg-card border border-border/60"
-      >
+    <div className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card">
+      <Link to="/product/$id" params={{ id: product.id }} className="block overflow-hidden">
         <div className="aspect-square overflow-hidden bg-muted">
           <img
             src={product.image}
@@ -25,6 +21,7 @@ export function ProductCard({ product }: { product: Product }) {
           />
         </div>
       </Link>
+
       <button
         onClick={() => toggle(product.id)}
         aria-label="Toggle wishlist"
@@ -36,22 +33,25 @@ export function ProductCard({ product }: { product: Product }) {
       >
         <Heart className={`h-4 w-4 ${liked ? "fill-current" : ""}`} />
       </button>
-      <div className="mt-3 flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-            {product.category}
+
+      <div className="space-y-2 p-4">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <Link
+              to="/product/$id"
+              params={{ id: product.id }}
+              className="block truncate text-xl font-medium leading-tight hover:text-primary"
+            >
+              {product.name}
+            </Link>
           </div>
-          <Link
-            to="/product/$id"
-            params={{ id: product.id }}
-            className="block truncate text-sm font-medium hover:text-primary"
-          >
-            {product.name}
-          </Link>
+          <span className="rounded-full bg-secondary px-2.5 py-1 text-sm text-muted-foreground">
+            {product.category}
+          </span>
         </div>
-        <div className="text-sm font-semibold whitespace-nowrap">
-          {formatINR(product.price)}
-        </div>
+
+        <div className="text-muted-foreground">{product.material}</div>
+        <div className="text-2xl font-semibold">{formatINR(product.price)}</div>
       </div>
     </div>
   );

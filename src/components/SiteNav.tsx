@@ -5,6 +5,7 @@ import { useWishlist } from "@/lib/store";
 const userLinks = [
   { to: "/", label: "Discover" },
   { to: "/browse", label: "Browse" },
+  { to: "/text-search", label: "Text Search" },
   { to: "/image-search", label: "Visual Search" },
 ];
 
